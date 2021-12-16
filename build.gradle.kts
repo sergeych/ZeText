@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "net.sergeych"
-version = "1.0"
+version = "1.0.2"
 
 repositories {
     google()
@@ -51,10 +51,10 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "ZeText"
-            packageVersion = "1.0.0"
-//            macOS {
-//                dockName = "ZeText"
-//            }
+            description = "Tool to protect sensitive build scripts"
+            copyright = "© 2021 Sergey S. Chernov"
+            vendor = "sergeych.net"
+            licenseFile.set(project.file("LICENSE.txt"))
         }
     }
 }
