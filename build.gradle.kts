@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "net.sergeych"
-version = "1.0.2"
+version = "1.0.4"
 
 repositories {
     google()
@@ -55,6 +55,12 @@ compose.desktop {
             copyright = "© 2021 Sergey S. Chernov"
             vendor = "sergeych.net"
             licenseFile.set(project.file("LICENSE.txt"))
+            linux {
+                rpmLicenseType = "MIT"
+            }
+            macOS {
+                bundleID = "net.sergeych.zetext"
+            }
         }
     }
 }
