@@ -45,7 +45,9 @@ This method has several advantages over setting up environments variables manual
 
 ## How to install
 
-I'm working on providing binary installation, but until then, clone the reposittory, install JDK and gradle and whatever else `./gradlew createDistributable` will ask. Then start the app that will be in `${projectRoot}/build/compose/binaries/main`. On the first start, select form the application menu tools -> install zetext shell script. Also, you can use `.gradlew package` to create installatino for your platform, that will also be placed somewhere in `${projectRoot}/build/compose/binaries/` depending on your platform. 
+For linux targets, see .deb distribution in the latest github release.
+
+On MacOS, it requires notarization and stuff what is not yet done. Until then, clone the repository, install JDK and gradle and whatever else `./gradlew createDistributable` will ask. Then start the app that will be in `${projectRoot}/build/compose/binaries/main`. On the first start, select form the application menu tools -> install zetext shell script. Also, you can use `.gradlew package` to create installatino for your platform, that will also be placed somewhere in `${projectRoot}/build/compose/binaries/` depending on your platform. 
 
 Script will be installed to `/usr/local/bin` if exists and writable, otherwise to `~/bin`.
 
