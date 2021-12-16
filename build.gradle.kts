@@ -27,7 +27,7 @@ dependencies {
     api("org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.3.0")
     implementation("com.icodici:crypto:3.14.3")
     implementation(compose.desktop.currentOs)
-    implementation(files("../jarlib/boss-serialization.jar"))
+    implementation(files("src/lib/boss-serialization.jar"))
     implementation("com.github.ajalt.clikt:clikt:3.3.0")
 
     testImplementation(kotlin("test"))
