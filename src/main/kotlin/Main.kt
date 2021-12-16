@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.FrameWindowScope
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
+import com.sun.jna.Platform
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -31,18 +32,23 @@ fun rememberAppState(): AppState = remember { AppState() }
 @Preview
 @Composable
 fun App2() {
-    var show by remember { mutableStateOf(true) }
+    val show by remember { mutableStateOf(true) }
 //    if (show) NewPasswordDialog(rememberAppState(), { res ->
 //        show = false
 //        println("Result: $res")
 //    })
-    if (show) PasswordDialog("", {
+    if (show) PasswordDialog{
         println("->> $it")
         delay(1000)
         println("<<- releasing")
         "some error"
-    })
+    }
 }
+
+val menuKey = if (Platform.isMac()) "⌘"
+else if (Platform.isWindows()) "Alt"
+else if (Platform.isLinux()) "Ctrl"
+else "??"
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -53,7 +59,7 @@ fun FrameWindowScope.App(window: ComposeWindow, file: File?, decryptMode: Boolea
     val scope = rememberCoroutineScope()
     var loadFileName by remember { mutableStateOf<String?>(null) }
     var showOpenPasswordDialog by remember { mutableStateOf(false) }
-    var password by remember { mutableStateOf("") }
+//    var password by remember { mutableStateOf("") }
 
     WindowMenuBar(state)
     MaterialTheme {
@@ -64,11 +70,13 @@ fun FrameWindowScope.App(window: ComposeWindow, file: File?, decryptMode: Boolea
                 Centered(Modifier.padding(it)) {
                     Text(
                         """
-                            New: ⌘ + N
+                            New: $menuKey + N
                             
-                            Open: ⌘ + O
+                            Open: $menuKey + O
                             
-                            see application menu
+                            Close: ESC ESC
+                            
+                            see application menu for more
                         """.trimIndent(),
                         color = MaterialTheme.colors.onSurface.copy(0.5f)
                     )
@@ -124,11 +132,11 @@ fun FrameWindowScope.App(window: ComposeWindow, file: File?, decryptMode: Boolea
         )
     }
     if (showOpenPasswordDialog) {
-        PasswordDialog(password) { psw ->
+        PasswordDialog { psw ->
             if (psw == null) {
                 showOpenPasswordDialog = false
                 state.requestOpen = false
-                if( decryptMode )
+                if (decryptMode)
                     System.exit(100)
                 null
             } else {
@@ -141,12 +149,11 @@ fun FrameWindowScope.App(window: ComposeWindow, file: File?, decryptMode: Boolea
                     else -> {
                         showOpenPasswordDialog = false
                         state.requestOpen = false
-                        if( decryptMode ) {
-                            if( result is ZeText.Result.Success) {
+                        if (decryptMode) {
+                            if (result is ZeText.Result.Success) {
                                 println(state.text)
                                 System.exit(0)
-                            }
-                            else {
+                            } else {
                                 System.exit(101)
                             }
                         }
@@ -171,7 +178,7 @@ fun FrameWindowScope.App(window: ComposeWindow, file: File?, decryptMode: Boolea
     }
 }
 
-fun startUIApp(file: File? = null, decryptMode: Boolean=false) = application {
+fun startUIApp(file: File? = null, decryptMode: Boolean = false) = application {
     Window(onCloseRequest = ::exitApplication) {
         App(window, file, decryptMode)
 //        App2()

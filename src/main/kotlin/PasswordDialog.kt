@@ -9,17 +9,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onKeyEvent
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.em
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun PasswordDialog(password: String, check: suspend (String?) -> String?) {
-    var text = mutableStateOf(password)
+fun PasswordDialog(check: suspend (String?) -> String?) {
+    val text = mutableStateOf("")
     var errorString: String? by remember { mutableStateOf(null) }
-    var scope = rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
     var busy by remember { mutableStateOf(false) }
 
     fun done(value: String?) {

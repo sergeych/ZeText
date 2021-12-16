@@ -4,35 +4,34 @@ import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyShortcut
 import androidx.compose.ui.window.FrameWindowScope
 import androidx.compose.ui.window.MenuBar
+import com.sun.jna.Platform
 import java.io.File
+
+fun HotKey(code: Key) =
+    KeyShortcut(
+        key = code, ctrl = Platform.isLinux(), alt=Platform.isWindows(), meta = Platform.isMac()
+    )
+
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun FrameWindowScope.WindowMenuBar(state: AppState) = MenuBar {
     Menu("File") {
         Item(
-            "New", onClick = { state.newFile() }, enabled = state.canNew, shortcut = KeyShortcut(
-                Key.N,
-                meta = true
+            "New", onClick = { state.newFile() }, enabled = state.canNew, shortcut = HotKey(Key.N)
             )
-        )
         Separator()
         Item(
-            "Open...", onClick = { state.requestOpen = true }, enabled = state.canOpen, shortcut = KeyShortcut(
-                Key.O,
-                meta = true
+            "Open...", onClick = { state.requestOpen = true }, enabled = state.canOpen, shortcut = HotKey(Key.O)
             )
-        )
         Item(
-            "Save", onClick = { state.requestSave = true }, enabled = state.canSave, shortcut = KeyShortcut(
-                Key.S, meta = true
+            "Save", onClick = { state.requestSave = true }, enabled = state.canSave, shortcut = HotKey(Key.S)
             )
-        )
         Item(
-            "Close", onClick = { state.requestClose = true }, enabled = state.canClose, shortcut = KeyShortcut(
-                Key.C, true
+            "Close", onClick = { state.requestClose = true }, enabled = state.canClose
             )
-        )
+//        Separator()
+//        Item("Quit", onClick = { System.exit(0) }, shortcut = HotKey(Key.Q))
     }
     Menu("Tools") {
         Item(
@@ -76,8 +75,6 @@ fun FrameWindowScope.WindowMenuBar(state: AppState) = MenuBar {
                         if (!success)
                             state.errorMessage = "Failed to create zetext script"
                     }
-//                        state.showSnackSync("")
-//                        state.showSnackSync("ph: ${cl}")
                 } finally {
                     state.busyMessage = null
                 }
