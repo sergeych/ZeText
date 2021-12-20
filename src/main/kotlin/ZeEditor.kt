@@ -4,9 +4,10 @@ import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.AlertDialog
+import androidx.compose.material.Button
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -16,13 +17,11 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.*
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import java.awt.FileDialog
 
@@ -35,6 +34,8 @@ fun ZeEditor(window: ComposeWindow, state: AppState) {
     val ss = rememberScrollState(0)
     val coroutineScope = rememberCoroutineScope()
     var lastEsc by remember { mutableStateOf(false) }
+
+    window.title = state.fileName ?: "new ztext"
 
     if (state.requestClose) {
         if (state.textChanged) {
@@ -120,7 +121,7 @@ fun ZeEditor(window: ComposeWindow, state: AppState) {
             state.requestSave = false
             if (ok) {
                 if (state.path == null) {
-                    val d = java.awt.FileDialog(window, "Select file save")
+                    val d = FileDialog(window, "Select file save")
                     d.mode = FileDialog.SAVE
                     d.isVisible = true
                     state.path = "${d.directory}${d.file}"

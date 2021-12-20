@@ -30,8 +30,8 @@ fun FrameWindowScope.WindowMenuBar(state: AppState) = MenuBar {
         Item(
             "Close", onClick = { state.requestClose = true }, enabled = state.canClose
             )
-//        Separator()
-//        Item("Quit", onClick = { System.exit(0) }, shortcut = HotKey(Key.Q))
+        Separator()
+        Item("Exit", onClick = { System.exit(0) }, enabled = !state.canClose, shortcut = HotKey(Key.Q))
     }
     Menu("Tools") {
         Item(

@@ -1,0 +1,47 @@
+#!/bin/bash
+
+function gen-cfd-icon() {
+    ICON_DIR="src/main/resources/launcher_icons"
+    mkdir -p $ICON_DIR
+    ORIGINAL_ICON="src/main/resources/zetext.png"
+#    cp "$1" "$ORIGINAL_ICON"
+
+    # Linux
+    echo "🌀 Creating icon for Linux..."
+    convert -resize 512x512 -gravity center -extent 512x512 -background none "$ORIGINAL_ICON" "$ICON_DIR/linux.png"
+
+    # Windows
+    echo "🌀 Creating icon for Windows..."
+    convert -resize x128 "$ORIGINAL_ICON" "$ICON_DIR/windows.ico"
+
+    # MacOS
+    echo "🌀 Creating icon for macOS..."
+    convert -resize x512 -gravity center -extent 512x512 -background none "$ORIGINAL_ICON" "$ICON_DIR/macos_128.png"
+    make_icns "$ICON_DIR/macos_128.png"
+    mv "$ICON_DIR/macos_128.icns" "$ICON_DIR/macos.icns"
+    rm "$ICON_DIR/macos_128.png"
+
+    ## Printing code
+    echo "Add this to your build.gradle.kts ⬇️"
+
+    OUTPUT="
+val iconsRoot = project.file(\"src/main/resources\")
+
+linux {
+  iconFile.set(iconsRoot.resolve(\"launcher_icons/linux.png\"))
+}
+
+windows {
+  iconFile.set(iconsRoot.resolve(\"launcher_icons/windows.ico\"))
+}
+
+macOS {
+  iconFile.set(iconsRoot.resolve(\"launcher_icons/macos.icns\"))
+}"
+    echo "$OUTPUT"
+    echo "$OUTPUT" | pbcopy
+    echo "Copied to your clipboard"
+}
+
+gen-cfd-icon
+

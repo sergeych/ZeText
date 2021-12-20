@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "net.sergeych"
-version = "1.0.4"
+version = "1.0.6"
 
 repositories {
     google()
@@ -54,13 +54,57 @@ compose.desktop {
             description = "Tool to protect sensitive build scripts"
             copyright = "© 2021 Sergey S. Chernov"
             vendor = "sergeych.net"
-            licenseFile.set(project.file("LICENSE.txt"))
+
+            val iconsRoot = project.file("src/main/resources")
             linux {
-                rpmLicenseType = "MIT"
+                iconFile.set(iconsRoot.resolve("launcher_icons/linux.png"))
+//                rpmLicenseType = "MIT"
             }
             macOS {
                 bundleID = "net.sergeych.zetext"
+                iconFile.set(iconsRoot.resolve("launcher_icons/macos.icns"))
+                infoPlist {
+                    extraKeysRawXml = macExtraPlistKeys
+                }
+            }
+            windows {
+                iconFile.set(iconsRoot.resolve("launcher_icons/windows.ico"))
             }
         }
     }
 }
+
+val macExtraPlistKeys: String
+    get() = """
+        <key>CFBundleDocumentTypes</key>
+        <array>
+            <dict>
+                <key>CFBundleTypeRole</key>
+                <string>Editor</string>
+                
+                <key>CFBundleTypeExtensions</key>
+                <array>
+                    <string>ztext</string>
+                </array>
+                
+                <key>CFBundleTypeIconFile</key>
+                <string>ZeText.icns</string>
+                
+                <key>CFBundleTypeMIMETypes</key>
+    			<array>
+	    			<string>application/octet-stream</string>
+		    	</array>
+
+                <key>CFBundleTypeOSTypes</key>
+                <array>
+                    <string>ZTXT</string>
+                </array>
+                
+                <key>CFBundleTypeName</key>
+                <string>binary ZeText</string>
+                
+                <key>LSHandlerRank</key>
+                <string>Owner</string>
+            </dict>
+        </array>
+    """

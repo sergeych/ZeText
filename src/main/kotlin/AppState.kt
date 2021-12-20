@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import net.sergeych.zetext.ZeText
 import java.io.File
+import java.nio.file.Path
 
 class AppState {
     private var zeText: ZeText? = null
@@ -53,6 +54,7 @@ class AppState {
     var busyMessage by mutableStateOf<String?>(null)
     var errorMessage by mutableStateOf<String?>(null)
 
+    @Suppress("unused")
     suspend fun showSnack(text: String) {
         _notifications.emit(text)
     }
@@ -93,7 +95,7 @@ class AppState {
             requestOpen = true
         }
         else
-            println("Error: openFile soudl not be called when there is modified opened file")
+            println("Error: openFile should not be called when there is modified opened file")
     }
 
     var password: String? = null
@@ -119,6 +121,8 @@ class AppState {
     val canClose: Boolean get() = !isEmpty
 
     var path: String? = null
+    val fileName: String?
+        get() = path?.let { Path.of(it).fileName.toString() }
     var lastText: String = ""
     var text by mutableStateOf("")
     var isEmpty: Boolean by mutableStateOf(true)

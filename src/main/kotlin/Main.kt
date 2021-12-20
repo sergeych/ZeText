@@ -22,6 +22,7 @@ import kotlinx.coroutines.launch
 import net.sergeych.common.Centered
 import net.sergeych.compose.FileDialog
 import net.sergeych.zetext.ZeText
+import java.awt.Desktop
 import java.io.File
 
 
@@ -61,12 +62,22 @@ fun FrameWindowScope.App(window: ComposeWindow, file: File?, decryptMode: Boolea
     var showOpenPasswordDialog by remember { mutableStateOf(false) }
 //    var password by remember { mutableStateOf("") }
 
+    Desktop.getDesktop()?.let {
+        it.setOpenFileHandler({
+            it.files.firstOrNull()?.let {
+                if( state.canOpen )
+                    state.openFile(it)
+            }
+        })
+    }
+
     WindowMenuBar(state)
     MaterialTheme {
         Scaffold(
             scaffoldState = scaffoldState,
         ) {
             if (state.isEmpty) {
+                window.title = "ZeText"
                 Centered(Modifier.padding(it)) {
                     Text(
                         """
