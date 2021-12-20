@@ -8,8 +8,8 @@ The tool to protect text scriptts (e.g. build scripts) from phishing from your c
 
 ### Install prebuilt binaries on x64:
 
-- For Linux: [packed .deb](/owner/name/releases/latest/download/zetext_1.0.6-1_amd64.deb)
-- For MAC: [notarized .dmg MacOS](/owner/name/releases/latest/download/ZeText-1.0.6.dmg)
+- For Linux: [packed .deb](/sergeych/ZeText/releases/latest/download/zetext_1.0.6-1_amd64.deb)
+- For MAC: [notarized .dmg MacOS](/sergeych/ZeText/releases/latest/download/ZeText-1.0.6.dmg)
 - For Windows: please contact me if you really need it.
 
 ### Or build from sources:
@@ -28,7 +28,7 @@ export password="my_maven_password"
 #
 # whatever else we want tp do before publishing
 # ...
-###
+#
 ~~~
 
 Now modify your build script to include decrypted zetext:
