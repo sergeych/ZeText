@@ -24,6 +24,7 @@ import net.sergeych.compose.FileDialog
 import net.sergeych.zetext.ZeText
 import java.awt.Desktop
 import java.io.File
+import java.lang.UnsupportedOperationException
 
 
 @Composable
@@ -63,12 +64,17 @@ fun FrameWindowScope.App(window: ComposeWindow, file: File?, decryptMode: Boolea
 //    var password by remember { mutableStateOf("") }
 
     Desktop.getDesktop()?.let {
-        it.setOpenFileHandler({
-            it.files.firstOrNull()?.let {
-                if( state.canOpen )
-                    state.openFile(it)
-            }
-        })
+        try {
+            it.setOpenFileHandler({
+                it.files.firstOrNull()?.let {
+                    if (state.canOpen)
+                        state.openFile(it)
+                }
+            })
+        }
+        catch(x: UnsupportedOperationException) {
+            // nothing to do then
+        }
     }
 
     WindowMenuBar(state)
