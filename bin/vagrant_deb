@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [[ "$(vagrant status --machine-readable | grep state,running)" ==  *"state,running"* ]]; then
+  echo "vagrant is already up"
+else
+  echo "staring vagrant"
+  vagrant up
+fi
+
+vagrant ssh -c "cd /vagrant && ./gradlew clean && ./gradlew packageDeb"

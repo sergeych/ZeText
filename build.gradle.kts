@@ -58,13 +58,26 @@ compose.desktop {
             val iconsRoot = project.file("src/main/resources")
             linux {
                 iconFile.set(iconsRoot.resolve("launcher_icons/linux.png"))
+                // does not work: it mistakenly says it has a proprietary licens :(
+                // while itis mut
 //                rpmLicenseType = "MIT"
             }
             macOS {
                 bundleID = "net.sergeych.zetext"
                 iconFile.set(iconsRoot.resolve("launcher_icons/macos.icns"))
+                // we do not add license to the apple distribution as it is
+                // MIT and does not need consent on use copiled code (I hope)
                 infoPlist {
                     extraKeysRawXml = macExtraPlistKeys
+                }
+                signing {
+                    sign.set(true)
+                    identity.set("Sergey Chernov")
+                }
+                notarization {
+                    appleID.set("real.sergeych@gmail.com")
+                    password.set("@keychain:zetexttest1")
+                    ascProvider.set("Y7FC8DCN73")
                 }
             }
             windows {

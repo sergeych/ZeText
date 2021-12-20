@@ -55,8 +55,8 @@ Vagrant.configure("2") do |config|
   #
   #   # Customize the amount of memory on the VM:
     vb.memory = 4096
-    # vb.cpus = 4
-    vb.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
+    vb.cpus = 8
+    # vb.customize ["modifyvm", :id, "--cpuexecutioncap", "90"]
   end
   #
   # View the documentation for the provider you are using for more
