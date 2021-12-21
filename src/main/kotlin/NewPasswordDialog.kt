@@ -15,8 +15,8 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun NewPasswordDialog(state: AppState, onClose: (Boolean) -> Unit) {
     if( state.needsPassword ) {
-        var password1 = mutableStateOf(state.password ?: "")
-        var password2 = mutableStateOf(state.password ?: "")
+        val password1 = mutableStateOf(state.password ?: "")
+        val password2 = mutableStateOf(state.password ?: "")
 
         fun checkPassword1(): Boolean {
             val value = password1.value
@@ -87,7 +87,6 @@ fun NewPasswordDialog(state: AppState, onClose: (Boolean) -> Unit) {
         )
     }
     else {
-        println("password already set, re-using it")
         onClose(true)
     }
 }

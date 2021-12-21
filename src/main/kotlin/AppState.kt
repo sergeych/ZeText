@@ -94,8 +94,9 @@ class AppState {
             path = file.absolutePath
             requestOpen = true
         }
-        else
-            println("Error: openFile should not be called when there is modified opened file")
+        else {
+            // Error: openFile should not be called when there is modified opened file")
+        }
     }
 
     var password: String? = null

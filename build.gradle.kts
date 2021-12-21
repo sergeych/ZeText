@@ -9,12 +9,12 @@ plugins {
 }
 
 group = "net.sergeych"
-version = "1.0.6"
+version = "1.0.7"
 
 repositories {
     google()
     mavenCentral()
-//    maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+    maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     maven("https://maven.universablockchain.com/")
 }
 

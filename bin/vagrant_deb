@@ -7,4 +7,4 @@ else
   vagrant up
 fi
 
-vagrant ssh -c "cd /vagrant && ./gradlew clean && ./gradlew packageDeb"
+#vagrant ssh -c "cd /vagrant && ./gradlew clean && ./gradlew packageDeb"

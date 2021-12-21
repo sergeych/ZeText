@@ -8,8 +8,10 @@ The tool to protect text scriptts (e.g. build scripts) from phishing from your c
 
 ### Install prebuilt binaries on x64:
 
-- For Linux: [packed .deb](https://github.com/sergeych/ZeText/releases/latest/download/zetext_1.0.6-1_amd64.deb)
-- For MacOS: [signed .dmg](https://github.com/sergeych/ZeText/releases/latest/download/ZeText-1.0.6.dmg)
+See [latest release](https://github.com/sergeych/ZeText/releases/latest), in particular:
+
+- For Linux: [packed .deb](https://github.com/sergeych/ZeText/releases/latest/download/zetext_1.0.7-1_amd64.deb)
+- For MacOS: [signed .dmg](https://github.com/sergeych/ZeText/releases/latest/download/ZeText-1.0.7.dmg)
 - For Windows: please contact me if you really need it.
 
 ### Or build from sources:

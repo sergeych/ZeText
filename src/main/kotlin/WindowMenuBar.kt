@@ -46,13 +46,10 @@ fun FrameWindowScope.WindowMenuBar(state: AppState) = MenuBar {
                         val cl = optCl.get()
                         var success = false
                         for (x in arrayOf("/usr/local/bin", "${System.getenv()["HOME"]}/bin")) {
-                            println("trying to create in $x")
                             val f = File(x)
                             if (f.exists() && f.isDirectory) {
-                                println("Found directory $f")
                                 try {
                                     if (f.canWrite()) {
-                                        println("even can write to it")
                                         val script = File(f, "zetext")
                                         script.writeText(
                                             """
@@ -68,9 +65,9 @@ fun FrameWindowScope.WindowMenuBar(state: AppState) = MenuBar {
                                         break
                                     }
                                 } catch (x: Exception) {
-                                    println("Failed to create script: $x")
+                                    // ignore error
                                 }
-                            } else println("can't write to $x, skipping")
+                            } // else: can't write to $x, skipping
                         }
                         if (!success)
                             state.errorMessage = "Failed to create zetext script"

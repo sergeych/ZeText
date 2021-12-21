@@ -37,12 +37,9 @@ fun App2() {
     val show by remember { mutableStateOf(true) }
 //    if (show) NewPasswordDialog(rememberAppState(), { res ->
 //        show = false
-//        println("Result: $res")
 //    })
     if (show) PasswordDialog{
-        println("->> $it")
         delay(1000)
-        println("<<- releasing")
         "some error"
     }
 }
@@ -160,7 +157,6 @@ fun FrameWindowScope.App(window: ComposeWindow, file: File?, decryptMode: Boolea
                 val result = state.loadFile(loadFileName!!, psw)
                 when (result) {
                     ZeText.Result.BadPassword -> {
-                        println("reporing error")
                         "Invalid password"
                     }
                     else -> {
