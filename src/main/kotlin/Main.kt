@@ -204,8 +204,5 @@ fun startUIApp(file: File? = null, decryptMode: Boolean = false) = application {
 }
 
 fun main(args: Array<String>) {
-//    val s = Argv0.source(ZtCli::class.java)
-//    println("Program: $s")
-//    ZtCli().main(arrayOf("-d", "/Users/sergeych/dev/first_1.ztext"))
     ZtCli().main(args)
 }

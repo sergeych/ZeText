@@ -24,10 +24,10 @@ java {
 }
 
 dependencies {
-    api("org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.3.0")
+    api("org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.3.1")
     implementation("com.icodici:crypto:3.14.3")
     implementation(compose.desktop.currentOs)
-    implementation(files("src/lib/boss-serialization.jar"))
+    implementation("net.sergeych:boss-serialization:1.0.5")
     implementation("com.github.ajalt.clikt:clikt:3.3.0")
 
     testImplementation(kotlin("test"))

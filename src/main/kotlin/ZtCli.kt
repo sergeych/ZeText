@@ -5,11 +5,9 @@ import com.github.ajalt.clikt.parameters.options.flag
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.types.file
 import com.github.mm.coloredconsole.colored
-import kotlinx.coroutines.runBlocking
-import net.sergeych.zetext.ZeText
 import java.io.File
 
-class ZtCli : CliktCommand() {
+class ZtCli : CliktCommand(name="zetext") {
 
     val decryptFile: Boolean by option(
         "-d",

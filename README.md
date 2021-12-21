@@ -45,6 +45,28 @@ the password will be entered in UI window, and the decrypted text will be printe
 
 This is of course not the only way of using zetext tool, this is just the most obvious. Also, you can put the while scrtip inside .ztext, if you don't want others to know your inner deploy kitchen.
 
+### Real world scenario
+
+In my projects, I've put my credentials to the `~./credentials/maven_id.ztext` file as described above, and have a publish script that works will all my gralde projects, like this:
+
+File `~/bin/pubmaven`:
+~~~bash
+#!/bin/zsh
+
+function error() {
+    echo "$1"
+    exit 100
+}
+. <(zetext -d ~/credentials/maven_id.ztext)
+if [ $? -ne 0 ]; then error "zetext decryption failed"; fi
+
+if [ -z "${maven_user}" ]; then error "maven user is not set"; fi
+if [ -z "${maven_password}" ]; then error "maven passowrd is not set"; fi
+./gradlew publish
+~~~
+
+Now in any project folder that uses gradle and maven publishing plugin, I just run `pubmaven` and it works like a charm.
+
 ## Details
 
 This is a simple text encryption/decryption password based GUI+CLI tool, allowing to enter, edit and decrypt files in a way these never hit the filesystem. The ecnryption is robust (AES256) so is the password key derivation (PBKDF< HMAC on SHA3_384, manu rounds), so unless you use predicatble password, the encrypted text is safe.
